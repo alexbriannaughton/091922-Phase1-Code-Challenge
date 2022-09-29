@@ -31,6 +31,10 @@ function renderCutie(cutie) {
             e.preventDefault()
             const formVotes = parseInt(e.target[0].value)
             cutieVotes.textContent = formVotes + parseInt(cutieVotes.textContent)
+            const resetBtn = document.getElementById('reset-btn')
+            resetBtn.addEventListener('click', e => {
+                cutieVotes.textContent = "0"
+            })
 
         })
     })
@@ -42,10 +46,12 @@ const newChar=() => {
         e.preventDefault()
         const newName = e.target[0].value
         const newImage = e.target[1].value
+        const newVotes = 0
 
         const newChar = {
             name: newName,
-            image: newImage
+            image: newImage,
+            votes: newVotes
         }
         postChar(newChar)
         renderCutie(newChar)
@@ -64,18 +70,6 @@ const postChar = newChar => {
         .then(resp => resp.json())
         .then(json => console.log(json))
 }
-
-// const postVotes = newVotes => {
-//     const config = {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'Application/json'
-//         },
-//         body: JSON.stringify({ newRamen })
-//     }
-// }
-
-//function addVotes(votes) {}
 
 fetchCutie()
 newChar()
