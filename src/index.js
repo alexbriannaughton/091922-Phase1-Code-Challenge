@@ -36,6 +36,34 @@ function renderCutie(cutie) {
     })
 }
 
+const newChar=() => {
+    const charForm = document.getElementById('character-form')
+    charForm.addEventListener('submit', e => {
+        e.preventDefault()
+        const newName = e.target[0].value
+        const newImage = e.target[1].value
+
+        const newChar = {
+            name: newName,
+            image: newImage
+        }
+        postChar(newChar)
+        renderCutie(newChar)
+    })
+}
+const postChar = newChar => {
+    const config = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'Application/json'
+        },
+        body: JSON.stringify(newChar)
+    }
+
+    fetch(URL, config)
+        .then(resp => resp.json())
+        .then(json => console.log(json))
+}
 
 // const postVotes = newVotes => {
 //     const config = {
@@ -50,3 +78,4 @@ function renderCutie(cutie) {
 //function addVotes(votes) {}
 
 fetchCutie()
+newChar()
